@@ -36,5 +36,14 @@ PATCH_VBMETA_FLAG=auto;
 # boot install
 dump_boot;
 
+# fix GPU firmware permission denied
+if [ -d /vendor/firmware ]; then
+  ui_print "- Applying GPU firmware permission bypass...";
+  chmod 755 /vendor/firmware;
+  [ -f /vendor/firmware/a630_sqe.fw ] && chmod 644 /vendor/firmware/a630_sqe.fw;
+  [ -f /vendor/firmware/a615_zap.mdt ] && chmod 644 /vendor/firmware/a615_zap.mdt;
+  [ -f /vendor/firmware/awinic/a618_gmu.bin ] && chmod 644 /vendor/firmware/awinic/a618_gmu.bin;
+fi
+
 write_boot;
 ## end boot install
